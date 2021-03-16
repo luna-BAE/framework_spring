@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+<!-- handler Mapping : url에 따른 컨트롤러 선택 -->
+	<bean id="handlerMapping" class="org.springframework.web.servlet.handler.BeanNameUrlHandlerMapping"></bean>
+	<!-- 별도의 명세가 없으면 이 빈들은 싱글톤 패턴이 됨, 따라서 효과적을 재사용하게 되는 것 -->
+	<!-- 스코프 옵션을 안주면 디폴트는 싱글톤이고, 한 객체를 재사용 -->
+
+	<bean name="/index.do" class="com.bit.controller.IndexController"></bean>
+	
+	<bean name="/intro.do" class="org.springframework.web.servlet.mvc.ParameterizableViewController">
+		<property name="viewName" value="intro"></property>
+		<!-- 파라미터의 이름으로 뷰의 이름을 정해주는 컨트롤러 클래스로 -->
+		<!-- 별도의 컨트롤러없이 빈의 이 클래스를 쓰면 뷰 네임을 리턴해줌  -->
+	</bean>
+	
+	<bean name = "/add.do" class="org.springframework.web.servlet.mvc.ParameterizableViewController">
+		<property name="viewName" value="add"></property>
+		<!-- add 페이지는 어떤 값을 주고 받는 것이 아니라 단순히 목록에서 추가 화면으로 이동하는 것이기 때문에 -->
+		<!-- ParameterizableViewController 이 컨트롤러를 통해서 페이지 이동을 처리하는 것이 편함 -->
+	</bean>
+
+	<bean name = "/insert.do" class = "com.bit.controller.AddController"/>
+	
+	
+	<bean name="/list.do" class="com.bit.controller.ListController"/>
+	<!-- 하위 속성이 없다면 바로 열고 닫아도 됨 -->
+
+<!-- view Resolver : 결정된 뷰의 지정 -->
+	<bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="prefix" value="/WEB-INF/views/"></property>
+		<property name="suffix" value=".jsp"></property>
+	</bean>
+
+</beans>

@@ -1,0 +1,9 @@
+package com.bit.model;
+
+public class DeptDao01 {
+
+	public DeptDao01() {}
+	
+	
+	
+}

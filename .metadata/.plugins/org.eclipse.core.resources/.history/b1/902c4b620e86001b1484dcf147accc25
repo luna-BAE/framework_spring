@@ -1,0 +1,13 @@
+package com.bit.model;
+
+import java.util.List;
+
+import com.bit.model.entity.DeptVo;
+
+public interface DeptDao {
+
+	List<DeptVo> selectAll();
+	
+	void insertone(DeptVo bean);
+	
+}
