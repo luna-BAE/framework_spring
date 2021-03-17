@@ -1,5 +1,5 @@
-GitRepositoriesView.GitDirectories=C\:\\Users\\AII2_07\\git\\spring\\.git;
-GitRepositoriesView.GitDirectories.relative=C\:\\Users\\AII2_07\\git\\spring\\.git;
+GitRepositoriesView.GitDirectories=C\:\\workspace\\.git;C\:\\Users\\AII2_07\\git\\spring\\.git;
+GitRepositoriesView.GitDirectories.relative=.git;C\:\\Users\\AII2_07\\git\\spring\\.git;
 RepositorySearchDialogSearchPath=C\:\\Users\\AII2_07\\git
 core_autoIgnoreDerivedResources=false
 eclipse.preferences.version=1
