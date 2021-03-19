@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<bean
+	id = "dataSource" 
+	class = "org.springframework.jdbc.datasource.DriverManagerDataSource"
+	p:driverClassName = "org.mariadb.jdbc.Driver"
+	p:url = "jdbc:mariadb://localhost:3306/xe"
+	p:username = "scott"
+	p:password = "tiger"></bean>
+	
+	<bean
+	id = "jdbcTemplate"
+	class = "org.springframework.jdbc.core.JdbcTemplate"
+	p:dataSource-ref="dataSource"
+	></bean>
+	
+	<bean
+	id = "sqlMapClient"
+	class = "org.springframework.orm.ibatis.SqlMapClientFactoryBean"
+	p:dataSource-ref="dataSource"
+	p:configLocation="classpath:/sqlMapConfig.xml"
+	></bean>
+	
+	<bean
+	id = "sqlMapClientTemplate"
+	class = "org.springframework.orm.ibatis.SqlMapClientTemplate"
+	p:sqlMapClient-ref="sqlMapClient"
+	></bean>
+	
+	<bean
+	id = "deptDao"
+	class = "com.bit.dept.model.DeptDao02Impl"
+	p:template-ref="sqlMapClientTemplate"
+	></bean>
+	
+	<bean
+	id = "methodBeforeAdvice"
+	class = "com.bit.aop.BitBeforeMethod"
+	></bean>
+	
+	<bean
+	id = "afterReturningAdvice"
+	class = "com.bit.aop.BitAfterReturnMethod"
+	></bean>
+	
+	<bean
+	id = "bitAfterExceptionMethod"
+	class = "com.bit.aop.BitAfterExceptionMethod"
+	></bean>
+	
+	<bean
+	id = "methodInterceptor"
+	class = "com.bit.aop.BitAroundMethod"
+	></bean>
+	
+	<bean
+	id = "proxy"
+	class = "org.springframework.aop.framework.ProxyFactoryBean"
+	p:target-ref = "deptDao">
+		<property name="target" ref = "deptDao"></property>
+		<property name="interceptorNames">
+			<list>
+				<value>methodBeforeAdvice</value>
+				<value>afterReturningAdvice</value>
+				<value>methodInterceptor</value>
+			</list>
+		</property>
+	</bean>
+
+</beans>
